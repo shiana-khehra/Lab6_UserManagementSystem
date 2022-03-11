@@ -78,7 +78,6 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         boolean active =false;
         
-        String email = request.getParameter("email");
         String firstname = request.getParameter("fname");
         String lastname = request.getParameter("lname");
         String activeStatus = request.getParameter("activeStatus");
@@ -88,6 +87,7 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("passwd");
         List<Role> roles = null;
         List<User> users = null;
+        String email = null;
         try {
             roles = roleservice.getAll();
         } catch (Exception ex) {
@@ -104,6 +104,7 @@ public class UserServlet extends HttpServlet {
         Role role = new Role(roleId, roleName);
         if (action != null && action.equals("add")) {
             try {
+                email = request.getParameter("email");
                 userservice.insert(email, active, firstname, lastname, password, role);
                 users = userservice.getAll();
             } catch (Exception ex) {
@@ -112,6 +113,12 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("users", users);
         } else if (action != null && action.equals("edit")) {
             try {
+                users = userservice.getAll();
+                for(int i=0; i<users.size(); i++) {
+                    if(users.get(i).getFirstName() == firstname && users.get(i).getLastName() == lastname) {
+                    email = users.get(i).getEmail();
+            }
+        }
                 userservice.update(email, active, firstname, lastname, password, role);
                 users = userservice.getAll();
             } catch (Exception ex) {
