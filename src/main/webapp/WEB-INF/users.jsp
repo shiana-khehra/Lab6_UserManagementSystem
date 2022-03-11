@@ -12,11 +12,83 @@
         
     </head>
     <body>
+        <div class="bg-light d-flex justify-content-between mt-3">
+        <form action="user" method="post">
+            <input type="hidden" name="action" value="add">
+            
+            <h1>Add User</h1>
+            <table>
+                <tr>
+                    <td>
+                        <label for="Email">Email</label>
+                    </td>
+                    <td>
+                        <input type="text" name="Email" id="Email">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <label for="fname">First Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="fname" id="fname">
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="lname">Last Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lname" id="lname">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <label for="role">Role</label>
+                    </td>
+                    <td>
+                        <select name="role" id="role">
+                            <c:forEach var="role" items="${roles}">
+                                <option value="${role.id}">${role.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+           
+                <tr>
+                    <td>
+                        <label for="activeStatus">Active</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="activeStatus" name="activeStatus" checked="checked"/>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <label for="passwd">Password</label>
+                    </td>
+                    <td>
+                        <input type="password" name="passwd" id="passwd">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <button type="submit">Add User</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
         
+            <div class="justify-content-between">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1>User Management System</h1>
+                    <h1>Manage Users</h1>
         
                     <table class="table">
                         <thead>
@@ -25,7 +97,7 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Active</th>
-                                <th>Actions</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,8 +108,7 @@
                                     <td>${user.lastName}</td>
                                     <td>${user.active ? "Y" : "N"}</td>
                                     <td>
-                                        <a href="">Edit</a>
-                                        <a href="user?action=delete;inactive_email=${user.email}">Delete</a>
+                                        <a href="user?action=delete&email=${user.email}">Delete</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -45,6 +116,72 @@
                     </table>
                 </div>
             </div>
+        </div>
+        </div>
+            
+            <div class="pull-right">
+        <form action="user" method="post">
+            <input type="hidden" name="action" value="edit">
+            
+            <h1>Edit User</h1>
+            <table>
+                <tr>
+                    <td>
+                        <label for="fname">First Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="fname" id="fname">
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="lname">Last Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lname" id="lname">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <label for="role">Role</label>
+                    </td>
+                    <td>
+                        <select name="role">
+                            <c:forEach var="role" items="${roles}">
+                                <option value="${role.id}">${role.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                </tr>
+           
+                <tr>
+                    <td>
+                        <label for="activeStatus">Active</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" id="activeStatus" name="activeStatus" checked="checked"/>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <label for="passwd">Password</label>
+                    </td>
+                    <td>
+                        <input type="password" name="passwd" id="passwd">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>
+                        <button type="submit">Edit User</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </div>
         </div>
        
     </body>
