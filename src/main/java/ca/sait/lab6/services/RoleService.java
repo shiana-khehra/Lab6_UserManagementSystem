@@ -14,4 +14,9 @@ public class RoleService {
         return roles;
     }
    
+    public int getRoleID(String roleName) throws Exception{
+
+        int id = this.roleDB.getRoleId(roleName);
+        return id;
+    }
 }

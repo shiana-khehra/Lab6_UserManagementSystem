@@ -52,18 +52,9 @@
                     <td>
                         <select name="role" id="role">
                             <c:forEach var="role" items="${roles}">
-                                <option value="${role.id}">${role.name}</option>
+                                <option value="${role.name}">${role.name}</option>
                             </c:forEach>
                         </select>
-                    </td>
-                </tr>
-           
-                <tr>
-                    <td>
-                        <label for="activeStatus">Active</label>
-                    </td>
-                    <td>
-                        <input type="checkbox" id="activeStatus" name="activeStatus" checked="checked"/>
                     </td>
                 </tr>
             
@@ -127,30 +118,39 @@
             <table>
                 <tr>
                     <td>
-                        <label for="fname">First Name</label>
+                        <label for="Emailedit">Email</label>
                     </td>
                     <td>
-                        <input type="text" name="fname" id="fname">
+                        <input type="text" name="Emailedit" id="Emailedit">
                     </td>
                 </tr>
                 
                 <tr>
                     <td>
-                        <label for="lname">Last Name</label>
+                        <label for="fnameedit">First Name</label>
                     </td>
                     <td>
-                        <input type="text" name="lname" id="lname">
+                        <input type="text" name="fnameedit" id="fnameedit">
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="lnameedit">Last Name</label>
+                    </td>
+                    <td>
+                        <input type="text" name="lnameedit" id="lnameedit">
                     </td>
                 </tr>
             
                 <tr>
                     <td>
-                        <label for="role">Role</label>
+                        <label for="roleedit">Role</label>
                     </td>
                     <td>
-                        <select name="role">
+                        <select name="roleedit">
                             <c:forEach var="role" items="${roles}">
-                                <option value="${role.id}">${role.name}</option>
+                                <option value="${role.name}">${role.name}</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -158,19 +158,19 @@
            
                 <tr>
                     <td>
-                        <label for="activeStatus">Active</label>
+                        <label for="activeStatusedit">Active</label>
                     </td>
                     <td>
-                        <input type="checkbox" id="activeStatus" name="activeStatus" checked="checked"/>
+                        <input type="number" id="activeStatusedit" name="activeStatusedit" min="0" max="1">
                     </td>
                 </tr>
             
                 <tr>
                     <td>
-                        <label for="passwd">Password</label>
+                        <label for="passwdedit">Password</label>
                     </td>
                     <td>
-                        <input type="password" name="passwd" id="passwd">
+                        <input type="password" name="passwdedit" id="passwdedit">
                     </td>
                 </tr>
             
@@ -183,6 +183,6 @@
         </form>
         </div>
         </div>
-       
+       <p>${error}</p>
     </body>
 </html>

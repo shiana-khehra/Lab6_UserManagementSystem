@@ -50,13 +50,15 @@ public class UserServlet extends HttpServlet {
          if (action != null && action.equals("delete")) {
             
             try {
-                String email = request.getParameter("email").replaceAll(" ", "+");
+                String email = request.getParameter("email").replace(" ","+");
                 userservice.delete(email);
+                users = userservice.getAll();
+                request.setAttribute("users", users);
                 
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.setAttribute("users", users);
+            
         }
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
@@ -75,56 +77,67 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         UserService userservice = new UserService();
         RoleService roleservice = new RoleService();
-        String action = request.getParameter("action");
-        boolean active =false;
-        
-        String firstname = request.getParameter("fname");
-        String lastname = request.getParameter("lname");
-        String activeStatus = request.getParameter("activeStatus");
-        if(activeStatus != null) {
-            active = true;
-        }
-        String password = request.getParameter("passwd");
         List<Role> roles = null;
         List<User> users = null;
-        String email = null;
+                
         try {
+            users = userservice.getAll();
             roles = roleservice.getAll();
+            request.setAttribute("roles", roles);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        String roleName = request.getParameter("role");
-        int roleId = 0;
-        for(int i=0; i<roles.size(); i++) {
-            if(roles.get(i).getName() == roleName) {
-                roleId = roles.get(i).getId();
-            }
-        }
-        Role role = new Role(roleId, roleName);
+        
+        String action = request.getParameter("action");
+        
         if (action != null && action.equals("add")) {
             try {
-                email = request.getParameter("email");
-                userservice.insert(email, active, firstname, lastname, password, role);
+                String email = request.getParameter("Email");
+            
+                String firstname = request.getParameter("fname");
+            
+                String lastname = request.getParameter("lname");
+            
+                String roleName = request.getParameter("role");
+                int roleId = roleservice.getRoleID(roleName);
+                Role role = new Role(roleId, roleName);
+                
+                String password = request.getParameter("passwd");
+            
+                userservice.insert(email, true, firstname, lastname, password, role);
                 users = userservice.getAll();
+                request.setAttribute("users", users);
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            request.setAttribute("users", users);
-        } else if (action != null && action.equals("edit")) {
-            try {
-                users = userservice.getAll();
-                for(int i=0; i<users.size(); i++) {
-                    if(users.get(i).getFirstName() == firstname && users.get(i).getLastName() == lastname) {
-                    email = users.get(i).getEmail();
             }
         }
-                userservice.update(email, active, firstname, lastname, password, role);
+        
+        if (action != null && action.equals("edit")) {
+            try {
+                String email = request.getParameter("Emailedit");
+            
+                String firstname = request.getParameter("fnameedit");
+            
+                String lastname = request.getParameter("lnameedit");
+            
+                String roleName = request.getParameter("roleedit");
+                int roleId = roleservice.getRoleID(roleName);
+                Role role = new Role(roleId, roleName);
+                
+                boolean status = false;
+                String active = request.getParameter("activeStatusedit");
+                if(active.equals("1")) {
+                    status = true;
+                }
+                
+                String password = request.getParameter("passwdedit");
+            
+                userservice.update(email, status, firstname, lastname, password, role);
                 users = userservice.getAll();
+                request.setAttribute("users", users);
             } catch (Exception ex) {
-                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("error", ex.getMessage());
             }
-            request.setAttribute("users", users);
         }
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
