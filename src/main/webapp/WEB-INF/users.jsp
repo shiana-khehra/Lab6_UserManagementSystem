@@ -16,7 +16,7 @@
         <form action="user" method="post">
             <input type="hidden" name="action" value="add">
             
-            <h1>Add User</h1>
+            <h1 style="text-align: center">Add User</h1>
             <table>
                 <tr>
                     <td>
@@ -79,7 +79,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1>Manage Users</h1>
+                    <h1 style="text-align: center">Manage Users</h1>
         
                     <table class="table">
                         <thead>
@@ -114,7 +114,7 @@
         <form action="user" method="post">
             <input type="hidden" name="action" value="edit">
             
-            <h1>Edit User</h1>
+            <h1 style="text-align: center">Edit User</h1>
             <table>
                 <tr>
                     <td>
